@@ -1,0 +1,17 @@
+{
+  "__version__": "1.0.6",
+  "layer": [
+    {
+      "name": "rbc",
+      "value": 1
+    },
+    {
+      "name": "wbc",
+      "value": 2
+    },
+    {
+      "name": "virus",
+      "value": 4
+    }
+  ]
+}
