@@ -1,147 +1,64 @@
-import { _decorator, Component, Node, Event } from 'cc';
+import { _decorator, Component, Node, Tween, UIOpacity, Vec3 } from 'cc';
 const { ccclass, property } = _decorator;
 
-@ccclass('DropDown')
+@ccclass('DropdownMenu')
 export default class DropdownMenu extends Component {
   @property(Node)
-  dropdownContent: Node | null = null; // O conteúdo do dropdown
+  dropdownContent: Node | null = null;
   private isOpen: boolean = false;
+  private uiOpacity: UIOpacity | null = null;
   private isAnimating: boolean = false;
+
   onLoad() {
-        // this.dropdownContent.active = false;
-
-        // this.node.on(cc.Node.EventType.TOUCH_END, this.toggleDropdown, this);
-
-        // cc.director
-        // .getScene()
-        // .on(cc.Node.EventType.TOUCH_START, this.onGlobalClick, this);
+    if (this.dropdownContent) {
+      this.dropdownContent.active = false;
+      this.uiOpacity =
+        this.dropdownContent.getComponent(UIOpacity) ||
+        this.dropdownContent.addComponent(UIOpacity);
+      this.uiOpacity.opacity = 0;
+      this.dropdownContent.setScale(new Vec3(0.8, 0.8, 0.8));
+    }
   }
+
   toggleDropdown() {
-        // if (this.isAnimating) return;
-        // if (this.isOpen) {
-        // this.closeDropdown();
-        // } else {
-        // this.openDropdown();
-        // }
-  }
-  openDropdown() {
-        // this.isOpen = true;
-        // this.isAnimating = true;
-        // this.dropdownContent.active = true;
+    if (this.isAnimating || !this.dropdownContent) return;
 
-        // this.dropdownContent.opacity = 0;
-        // this.dropdownContent.scale = 0.8;
-
-        // cc.tween(this.dropdownContent)
-        // .to(0.3, { opacity: 255, scale: 1 }, { easing: 'quartOut' })
-        // .call(() => {
-        // this.isAnimating = false;
-        // })
-        // .start();
+    this.isOpen = !this.isOpen;
+    this.animateDropdown(this.isOpen);
   }
+
+  animateDropdown(open: boolean) {
+    if (!this.dropdownContent || !this.uiOpacity) return;
+
+    this.isAnimating = true;
+    this.dropdownContent.active = true;
+
+    const targetOpacity = open ? 255 : 0;
+    const targetScale = open ? new Vec3(1, 1, 1) : new Vec3(0.8, 0.8, 0.8);
+    const duration = 0.5;
+
+    new Tween(this.uiOpacity)
+      .to(duration, { opacity: targetOpacity }, { easing: 'quartInOut' })
+      .start();
+
+    new Tween(this.dropdownContent)
+      .to(duration, { scale: targetScale }, { easing: 'quartInOut' })
+      .call(() => {
+        if (!open) {
+          this.dropdownContent.active = false;
+        }
+        this.isAnimating = false;
+      })
+      .start();
+  }
+
   closeDropdown() {
-        // if (this.isAnimating) return;
-        // this.isAnimating = true;
-        // this.isOpen = false;
+    if (this.isOpen) {
+      this.toggleDropdown();
+    }
+  }
 
-        // cc.tween(this.dropdownContent)
-        // .to(0.2, { opacity: 0, scale: 0.8 }, { easing: 'quartIn' })
-        // .call(() => {
-        // this.dropdownContent.active = false;
-        // this.isAnimating = false;
-        // })
-        // .start();
-  }
-  onGlobalClick(event: Event.EventTouch) {
-        // let clickInside = this.node
-        // .getBoundingBoxToWorld()
-        // .contains(event.getLocation());
-        // if (!clickInside) {
-        // this.closeDropdown();
-        // }
-  }
-  onDestroy() {
-        // cc.director
-        // .getScene()
-        // .off(cc.Node.EventType.TOUCH_START, this.onGlobalClick, this);
+  selectionMade() {
+    // Lógica para quando uma opção do dropdown é selecionada
   }
 }
-
-
-/**
- * Note: The original script has been commented out, due to the large number of changes in the script, there may be missing in the conversion, you need to convert it manually
- */
-// const { ccclass, property } = cc._decorator;
-// 
-// @ccclass
-// export default class DropdownMenu extends cc.Component {
-//   @property(cc.Node)
-//   dropdownContent: cc.Node = null; // O conteúdo do dropdown
-// 
-//   private isOpen: boolean = false;
-//   private isAnimating: boolean = false;
-// 
-//   onLoad() {
-//     this.dropdownContent.active = false;
-// 
-//     this.node.on(cc.Node.EventType.TOUCH_END, this.toggleDropdown, this);
-// 
-//     cc.director
-//       .getScene()
-//       .on(cc.Node.EventType.TOUCH_START, this.onGlobalClick, this);
-//   }
-// 
-//   toggleDropdown() {
-//     if (this.isAnimating) return;
-//     if (this.isOpen) {
-//       this.closeDropdown();
-//     } else {
-//       this.openDropdown();
-//     }
-//   }
-// 
-//   openDropdown() {
-//     this.isOpen = true;
-//     this.isAnimating = true;
-//     this.dropdownContent.active = true;
-// 
-//     this.dropdownContent.opacity = 0;
-//     this.dropdownContent.scale = 0.8;
-// 
-//     cc.tween(this.dropdownContent)
-//       .to(0.3, { opacity: 255, scale: 1 }, { easing: 'quartOut' })
-//       .call(() => {
-//         this.isAnimating = false;
-//       })
-//       .start();
-//   }
-// 
-//   closeDropdown() {
-//     if (this.isAnimating) return;
-//     this.isAnimating = true;
-//     this.isOpen = false;
-// 
-//     cc.tween(this.dropdownContent)
-//       .to(0.2, { opacity: 0, scale: 0.8 }, { easing: 'quartIn' })
-//       .call(() => {
-//         this.dropdownContent.active = false;
-//         this.isAnimating = false;
-//       })
-//       .start();
-//   }
-// 
-//   onGlobalClick(event: cc.Event.EventTouch) {
-//     let clickInside = this.node
-//       .getBoundingBoxToWorld()
-//       .contains(event.getLocation());
-//     if (!clickInside) {
-//       this.closeDropdown();
-//     }
-//   }
-// 
-//   onDestroy() {
-//     cc.director
-//       .getScene()
-//       .off(cc.Node.EventType.TOUCH_START, this.onGlobalClick, this);
-//   }
-// }

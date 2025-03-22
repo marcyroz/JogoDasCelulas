@@ -1,106 +1,58 @@
-import { _decorator, Component, Label } from 'cc';
-const { ccclass, property } = _decorator;
+import { _decorator, Component, Vec3, UIOpacity, Tween, Node } from 'cc';
+const { ccclass } = _decorator;
 
 @ccclass('PopUpWindow')
-export default class NewClass extends Component {
-  @property(Label)
-  label: Label | null = null;
-  @property
-  text: string = 'hello';
+export default class PopUpWindow extends Component {
   private isOpen: boolean = false;
   private isAnimating: boolean = false;
+  private uiOpacity: UIOpacity = null!;
+  private tweenOpacity: Tween<UIOpacity> | null = null;
+  private tweenScale: Tween<Node> | null = null;
+
   onLoad() {
-        // this.node.active = false;
+    this.node.active = false;
+    this.node.setScale(new Vec3(0.2, 0.2, 0.2));
+    this.uiOpacity =
+      this.node.getComponent(UIOpacity) || this.node.addComponent(UIOpacity);
+    this.uiOpacity.opacity = 0;
   }
+
+  private animateWindow(open: boolean) {
+    if (this.isAnimating || this.isOpen === open) return;
+
+    this.isAnimating = true;
+    this.isOpen = open;
+    this.node.active = true;
+
+    const targetOpacity = open ? 255 : 0;
+    const targetScale = open ? new Vec3(1, 1, 1) : new Vec3(0.2, 0.2, 0.2);
+    const duration = 0.5;
+
+    this.tweenOpacity?.stop();
+    this.tweenScale?.stop();
+
+    this.tweenOpacity = new Tween(this.uiOpacity)
+      .to(duration, { opacity: targetOpacity }, { easing: 'quartInOut' })
+      .start();
+
+    this.tweenScale = new Tween(this.node)
+      .to(duration, { scale: targetScale }, { easing: 'quartInOut' })
+      .call(() => {
+        if (!open) this.node.active = false;
+        this.isAnimating = false;
+      })
+      .start();
+  }
+
   Show_Window() {
-        // if (this.isAnimating || this.isOpen) return;
-
-        // this.isOpen = true;
-        // this.isAnimating = true;
-        // this.node.active = true;
-
-        // this.node.opacity = 0;
-        // this.node.scale = 0.2;
-
-        // cc.tween(this.node)
-        // .to(0.5, { opacity: 255, scale: 1 }, { easing: 'quartInOut' })
-        // .call(() => {
-        // this.isAnimating = false;
-        // })
-        // .start();
+    this.animateWindow(true);
   }
+
   Hide_Window() {
-        // if (this.isAnimating) return;
-        // this.isAnimating = true;
-        // this.isOpen = false;
-
-        // cc.tween(this.node)
-        // .to(0.5, { opacity: 0, scale: 0.2 }, { easing: 'quartInOut' })
-        // .call(() => {
-        // this.node.active = false;
-        // this.isAnimating = false;
-        // })
-        // .start();
+    this.animateWindow(false);
   }
+
   Choice_clicked() {
-        // this.Hide_Window();
+    this.Hide_Window();
   }
 }
-
-
-/**
- * Note: The original script has been commented out, due to the large number of changes in the script, there may be missing in the conversion, you need to convert it manually
- */
-// const { ccclass, property } = cc._decorator;
-// 
-// @ccclass
-// export default class NewClass extends cc.Component {
-//   @property(cc.Label)
-//   label: cc.Label = null;
-// 
-//   @property
-//   text: string = 'hello';
-// 
-//   private isOpen: boolean = false;
-//   private isAnimating: boolean = false;
-// 
-//   onLoad() {
-//     this.node.active = false;
-//   }
-// 
-//   Show_Window() {
-//     if (this.isAnimating || this.isOpen) return;
-// 
-//     this.isOpen = true;
-//     this.isAnimating = true;
-//     this.node.active = true;
-// 
-//     this.node.opacity = 0;
-//     this.node.scale = 0.2;
-// 
-//     cc.tween(this.node)
-//       .to(0.5, { opacity: 255, scale: 1 }, { easing: 'quartInOut' })
-//       .call(() => {
-//         this.isAnimating = false;
-//       })
-//       .start();
-//   }
-// 
-//   Hide_Window() {
-//     if (this.isAnimating) return;
-//     this.isAnimating = true;
-//     this.isOpen = false;
-// 
-//     cc.tween(this.node)
-//       .to(0.5, { opacity: 0, scale: 0.2 }, { easing: 'quartInOut' })
-//       .call(() => {
-//         this.node.active = false;
-//         this.isAnimating = false;
-//       })
-//       .start();
-//   }
-// 
-//   Choice_clicked() {
-//     this.Hide_Window();
-//   }
-// }
