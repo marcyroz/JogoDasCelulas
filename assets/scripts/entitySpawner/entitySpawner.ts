@@ -34,7 +34,7 @@ export class Spawner extends Component {
   private RBCReproductionRate: number;
   private WBCReproductionRate: number;
 
-  private reproductionRateDivider: number = 10; // Fator para diminuir a rapidez do spawn
+  private reproductionRateDivider: number = 15;
 
   initialize() {
     const visibleSize = view.getVisibleSize();
