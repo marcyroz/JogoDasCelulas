@@ -15,6 +15,7 @@ export default class PopUpWindow extends Component {
     this.uiOpacity =
       this.node.getComponent(UIOpacity) || this.node.addComponent(UIOpacity);
     this.uiOpacity.opacity = 0;
+    this.node.setSiblingIndex(this.node.parent.children.length - 1);
   }
 
   private animateWindow(open: boolean) {
