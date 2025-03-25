@@ -1,14 +1,18 @@
-import { _decorator, Component, Label } from 'cc';
+import { _decorator, Component, view } from 'cc';
 const { ccclass, property } = _decorator;
+
+import { Spawner } from './entitySpawner/entitySpawner';
 
 @ccclass('Game')
 export default class Game extends Component {
-  @property(Label)
-  label: Label | null = null;
-  @property
-  text: string = 'hello';
-  //    // LIFE-CYCLE CALLBACKS:
-  //    // onLoad () {}
-  start() {}
-  //    // update (dt) {}
+  @property({
+    type: Spawner,
+    tooltip: 'Referência ao script de spawn de entidades',
+  })
+  public spawner: Spawner;
+
+  protected start() {
+    this.spawner.initialize();
+  }
+  onLoad() {}
 }

@@ -11,7 +11,7 @@ import {
 import WindowContent from '../windowContent/windowContent';
 import scriptV from '../../virus/scriptV';
 import scriptWBC from '../../whiteBloodCell/scriptWBC';
-import scriptRDB from '../../redBloodCell/scriptRBC';
+import scriptRBC from '../../redBloodCell/scriptRBC';
 
 const { ccclass, property } = _decorator;
 
@@ -32,7 +32,7 @@ export default class DropdownMenu extends Component {
 
   private entityData: { [key: string]: any } = {
     'glóbulo branco': new scriptWBC(),
-    'glóbulo vermelho': new scriptRDB(),
+    'glóbulo vermelho': new scriptRBC(),
     vírus: new scriptV(),
   };
 
