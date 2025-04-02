@@ -205,8 +205,5 @@
       "version": ""
     },
     "flags": {}
-  },
-  "macroConfig": {
-    "BATCHER2D_MEM_INCREMENT": 144
   }
 }
