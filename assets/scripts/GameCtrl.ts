@@ -1,18 +1,21 @@
-import { _decorator, Component, view } from 'cc';
+import {
+  _decorator,
+  Component,
+  Collider2D,
+  Contact2DType,
+  IPhysics2DContact,
+  Prefab,
+} from 'cc';
 const { ccclass, property } = _decorator;
 
-import { Spawner } from './Spawner';
+import Spawner from './Spawner';
 
-@ccclass('Game')
-export default class Game extends Component {
-  @property({
-    type: Spawner,
-    tooltip: 'Referência ao script de spawn de entidades',
-  })
-  public spawner: Spawner;
+@ccclass('GameCtrl')
+export default class GameCtrl extends Component {
+  @property({ type: Spawner })
+  private spawner: Spawner = null;
 
-  protected start() {
+  onLoad() {
     this.spawner.initialize();
   }
-  onLoad() {}
 }

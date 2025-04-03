@@ -20,7 +20,7 @@ import RbcManager from './RbcManager';
 import PopulationBoard from './PopulationBoard';
 
 @ccclass('Spawner')
-export class Spawner extends Component {
+export default class Spawner extends Component {
   @property({ type: Prefab, tooltip: 'Prefab da entidade vírus' })
   public virusPrefab: Prefab = null;
 
@@ -33,11 +33,11 @@ export class Spawner extends Component {
   @property({ type: VirusManager, tooltip: 'Node do Virus manager' })
   public virusManager: VirusManager = null;
 
-  @property({ type: WbcManager, tooltip: 'Node do Wbc manager' })
-  public wbcManager: WbcManager = null;
-
   @property({ type: RbcManager, tooltip: 'Node do Rbc manager' })
   public rbcManager: RbcManager = null;
+
+  @property({ type: WbcManager, tooltip: 'Node do Wbc manager' })
+  public wbcManager: WbcManager = null;
 
   @property({ type: PopulationBoard, tooltip: 'Node do Rbc manager' })
   public populationBoard: PopulationBoard = null;
@@ -46,6 +46,7 @@ export class Spawner extends Component {
   public cols: number;
   public rows: number;
   public occupiedPositions: Set<string> = new Set();
+  public spawnMargin: number = 1;
 
   private reproductionRateDivider: number = 10;
 
@@ -60,9 +61,16 @@ export class Spawner extends Component {
     // Configurar as taxas de reprodução para cada entidade
     this.setupEntityReproductionRate();
 
-    this.registerSchedulers();
-
     this.virusManager.onVariableChangeEventTarget.on(
+      'onPropertyChange',
+      () => {
+        this.unregisterSchedulers();
+        this.registerSchedulers();
+      },
+      this
+    );
+
+    this.rbcManager.onVariableChangeEventTarget.on(
       'reproductionRateValue',
       () => {
         this.unregisterSchedulers();
@@ -79,38 +87,27 @@ export class Spawner extends Component {
       },
       this
     );
-
-    this.rbcManager.onVariableChangeEventTarget.on(
-      'reproductionRateValue',
-      () => {
-        this.unregisterSchedulers();
-        this.registerSchedulers();
-      },
-      this
-    );
   }
 
-  // Agendar a função de spawn de cada tipo de entidade
   private registerSchedulers() {
     this.schedule(
       this.spawnVirus,
-      1 /
-        (this.virusManager.reproductionRateValue / this.reproductionRateDivider)
+      this.reproductionRateDivider / this.virusManager.reproductionRateValue
     );
     this.schedule(
       this.spawnRBC,
-      1 / (this.rbcManager.reproductionRateValue / this.reproductionRateDivider)
+      this.reproductionRateDivider / this.rbcManager.reproductionRateValue
     );
     this.schedule(
       this.spawnWBC,
-      1 / (this.wbcManager.reproductionRateValue / this.reproductionRateDivider)
+      this.reproductionRateDivider / this.wbcManager.reproductionRateValue
     );
   }
 
   private unregisterSchedulers() {
     this.unschedule(this.spawnVirus);
-    this.unschedule(this.spawnWBC);
     this.unschedule(this.spawnRBC);
+    this.unschedule(this.spawnWBC);
   }
 
   reserveTopRightBlock() {
@@ -133,19 +130,24 @@ export class Spawner extends Component {
     const virusScript = virusEntity.getComponent(ScriptVirus);
     if (virusScript) {
       this.virusManager.reproductionRateValue = virusScript.reproductionRate;
+      this.populationBoard.addCount('virus');
     }
 
     const RBCEntity = instantiate(this.RBCPrefab);
     const RBCScript = RBCEntity.getComponent(ScriptRBC);
     if (RBCScript) {
       this.rbcManager.reproductionRateValue = RBCScript.reproductionRate;
+      this.populationBoard.addCount('RBC');
     }
 
     const WBCEntity = instantiate(this.WBCPrefab);
     const WBCScript = WBCEntity.getComponent(ScriptWBC);
     if (WBCScript) {
       this.wbcManager.reproductionRateValue = WBCScript.reproductionRate;
+      this.populationBoard.addCount('WBC');
     }
+
+    this.registerSchedulers();
   }
 
   spawnVirus() {
@@ -162,7 +164,7 @@ export class Spawner extends Component {
 
   spawnEntity(prefab: Prefab, type: 'virus' | 'RBC' | 'WBC') {
     if (this.occupiedPositions.size >= this.cols * this.rows) {
-      this.unschedule(this.spawnEntity);
+      this.unregisterSchedulers();
       console.log('Todos os espaços foram preenchidos.');
       return;
     }
@@ -171,9 +173,15 @@ export class Spawner extends Component {
     let randomRow: number;
     let positionKey: string;
 
+    // Ajustar os limites de spawn para não permitir spawn nas margens
+    const minCol = this.spawnMargin;
+    const maxCol = this.cols - this.spawnMargin - 1;
+    const minRow = this.spawnMargin;
+    const maxRow = this.rows - this.spawnMargin - 1;
+
     do {
-      randomCol = Math.floor(Math.random() * this.cols);
-      randomRow = Math.floor(Math.random() * this.rows);
+      randomCol = Math.floor(Math.random() * (maxCol - minCol + 1)) + minCol;
+      randomRow = Math.floor(Math.random() * (maxRow - minRow + 1)) + minRow;
       positionKey = `${randomCol},${randomRow}`;
     } while (
       this.occupiedPositions.has(positionKey) ||
@@ -201,12 +209,14 @@ export class Spawner extends Component {
       virusProps.strength = this.virusManager.strengthValue;
       virusProps.resistance = this.virusManager.resistanceValue;
       virusProps.reproductionRate = this.virusManager.reproductionRateValue;
+      this.populationBoard.addCount(type);
     } else if (type === 'RBC') {
       const RBCProps = entity.getComponent(ScriptRBC);
       RBCProps.health = this.rbcManager.healthValue;
       RBCProps.speed = this.rbcManager.speedValue;
       RBCProps.resistance = this.rbcManager.resistanceValue;
       RBCProps.reproductionRate = this.rbcManager.reproductionRateValue;
+      this.populationBoard.addCount(type);
     } else if (type === 'WBC') {
       const WBCProps = entity.getComponent(ScriptWBC);
       WBCProps.health = this.wbcManager.healthValue;
@@ -214,6 +224,7 @@ export class Spawner extends Component {
       WBCProps.strength = this.wbcManager.strengthValue;
       WBCProps.resistance = this.wbcManager.resistanceValue;
       WBCProps.reproductionRate = this.wbcManager.reproductionRateValue;
+      this.populationBoard.addCount(type);
     }
 
     entity.setPosition(new Vec3(xPos, yPos, 0));

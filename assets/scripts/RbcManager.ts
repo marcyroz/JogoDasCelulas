@@ -26,6 +26,7 @@ export default class RbcManager extends Component {
   public set healthValue(value: number) {
     this._heatlhValue = value;
     this.healthLabel.string = 'Saúde: ' + value.toString();
+    this.onVariableChangeEventTarget.emit('onPropertyChange', value);
   }
 
   public get speedValue(): number {
@@ -35,6 +36,7 @@ export default class RbcManager extends Component {
   public set speedValue(value: number) {
     this._speedValue = value;
     this.speedLabel.string = 'Velocidade: ' + value.toString();
+    this.onVariableChangeEventTarget.emit('onPropertyChange', value);
   }
 
   public get resistanceValue(): number {
@@ -44,6 +46,7 @@ export default class RbcManager extends Component {
   public set resistanceValue(value: number) {
     this._resistanceValue = value;
     this.resistanceLabel.string = 'Resistência: ' + value.toString();
+    this.onVariableChangeEventTarget.emit('onPropertyChange', value);
   }
 
   public get reproductionRateValue(): number {
@@ -55,14 +58,14 @@ export default class RbcManager extends Component {
     this.reproductionRateLabel.string = 'Reprodução: ' + value.toString();
     // Necessário inserir essa linha nos outros setters também
     // para que o evento seja emitido quando o valor mudar
-    this.onVariableChangeEventTarget.emit('reproductionRateValue', value);
+    this.onVariableChangeEventTarget.emit('onPropertyChange', value);
   }
 
   onLoad() {
-    this.healthValue = 0;
-    this.speedValue = 0;
-    this.resistanceValue = 0;
-    this.reproductionRateValue = 1;
+    this.healthValue = 20;
+    this.speedValue = 2;
+    this.resistanceValue = 4;
+    this.reproductionRateValue = 5;
   }
 
   addPoint(
