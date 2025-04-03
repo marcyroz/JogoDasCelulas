@@ -12,5 +12,5 @@ export default class ScriptWBC extends Component {
   @property
   resistance: number = 0;
   @property
-  reproductionRate: number = 1;
+  reproductionRate: number = 0;
 }
