@@ -34,4 +34,14 @@ export default class PopulationBoard extends Component {
       this.wbcLabel.string = (this.wbcCount++).toString();
     }
   }
+
+  removeCount(type: string) {
+    if (type === 'virus') {
+      this.virusLabel.string = (this.virusCount--).toString();
+    } else if (type === 'RBC') {
+      this.rbcLabel.string = (this.rbcCount--).toString();
+    } else {
+      this.wbcLabel.string = (this.wbcCount--).toString();
+    }
+  }
 }

@@ -67,15 +67,15 @@ export default class WbcManager extends Component {
     this.reproductionRateLabel.string = 'Reprodução: ' + value.toString();
     // Necessário inserir essa linha nos outros setters também
     // para que o evento seja emitido quando o valor mudar
-    this.onVariableChangeEventTarget.emit('reproductionRateValue', value);
+    this.onVariableChangeEventTarget.emit('onPropertyChange', value);
   }
 
   onLoad() {
-    this.healthValue = 0;
-    this.speedValue = 0;
-    this.strengthValue = 0;
-    this.resistanceValue = 0;
-    this.reproductionRateValue = 1;
+    this.healthValue = 20;
+    this.speedValue = 2;
+    this.strengthValue = 2;
+    this.resistanceValue = 10;
+    this.reproductionRateValue = 5;
   }
 
   addPoint(

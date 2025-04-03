@@ -10,7 +10,7 @@ export default class ScriptRBC extends Component {
   @property
   resistance: number = 0;
   @property
-  reproductionRate: number = 1;
+  reproductionRate: number = 0;
   @property
   infected: boolean = false;
 }

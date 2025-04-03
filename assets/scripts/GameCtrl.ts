@@ -1,7 +1,7 @@
 import { _decorator, Component, view } from 'cc';
 const { ccclass, property } = _decorator;
 
-import { Spawner } from './Spawner';
+import Spawner from './Spawner';
 
 @ccclass('Game')
 export default class Game extends Component {

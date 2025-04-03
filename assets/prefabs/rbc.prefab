@@ -205,10 +205,10 @@
     "__prefab": {
       "__id__": 11
     },
-    "health": 0,
-    "speed": 0,
-    "resistance": 0,
-    "reproductionRate": 1,
+    "health": 20,
+    "speed": 2,
+    "resistance": 4,
+    "reproductionRate": 5,
     "infected": false,
     "_id": ""
   },
