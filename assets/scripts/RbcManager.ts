@@ -1,4 +1,5 @@
 import { _decorator, Component, EventTarget, Label, Node } from 'cc';
+import { Points } from './Points';
 const { ccclass, property } = _decorator;
 
 @ccclass('RbcManager')
@@ -11,6 +12,8 @@ export default class RbcManager extends Component {
   public resistanceLabel: Label = null;
   @property(Label)
   public reproductionRateLabel: Label = null;
+  @property(Points)
+  public points: Points = null;
 
   private _heatlhValue: number = 0;
   private _speedValue: number = 0;
@@ -56,8 +59,6 @@ export default class RbcManager extends Component {
   public set reproductionRateValue(value: number) {
     this._reproductionRateValue = value;
     this.reproductionRateLabel.string = 'Reprodução: ' + value.toString();
-    // Necessário inserir essa linha nos outros setters também
-    // para que o evento seja emitido quando o valor mudar
     this.onVariableChangeEventTarget.emit('onPropertyChange', value);
   }
 
@@ -76,7 +77,12 @@ export default class RbcManager extends Component {
       | 'resistanceValue'
       | 'reproductionRateValue'
   ) {
-    this[property]++;
+    if (this.points && this.points.canSpendPoint()) {
+      this[property]++;
+      this.points.subtractPoints(1);
+    } else {
+      console.log('Pontos insuficientes para adicionar em', property);
+    }
   }
 
   removePoint(
@@ -87,6 +93,9 @@ export default class RbcManager extends Component {
       | 'resistanceValue'
       | 'reproductionRateValue'
   ) {
-    this[property]--;
+    if (this[property] > 0) {
+      this[property]--;
+      this.points.addPoints(1);
+    }
   }
 }
