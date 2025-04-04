@@ -1,4 +1,5 @@
 import { _decorator, Component, Node, Label, EventTarget } from 'cc';
+import { Points } from './Points';
 const { ccclass, property } = _decorator;
 
 @ccclass('VirusManager')
@@ -13,6 +14,8 @@ export default class VirusManager extends Component {
   public resistanceLabel: Label = null;
   @property(Label)
   public reproductionRateLabel: Label = null;
+  @property(Points)
+  public points: Points = null;
 
   private _healthValue: number = 0;
   private _speedValue: number = 0;
@@ -87,11 +90,15 @@ export default class VirusManager extends Component {
     property:
       | 'healthValue'
       | 'speedValue'
-      | 'strengthValue'
       | 'resistanceValue'
       | 'reproductionRateValue'
   ) {
-    this[property]++;
+    if (this.points && this.points.canSpendPoint()) {
+      this[property]++;
+      this.points.subtractPoints(1);
+    } else {
+      console.log('Pontos insuficientes para adicionar em', property);
+    }
   }
 
   removePoint(
@@ -99,10 +106,12 @@ export default class VirusManager extends Component {
     property:
       | 'healthValue'
       | 'speedValue'
-      | 'strengthValue'
       | 'resistanceValue'
       | 'reproductionRateValue'
   ) {
-    this[property]--;
+    if (this[property] > 0) {
+      this[property]--;
+      this.points.addPoints(1);
+    }
   }
 }
