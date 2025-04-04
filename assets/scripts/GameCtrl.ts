@@ -1,4 +1,4 @@
-import { _decorator, Component, view } from 'cc';
+import { _decorator, Component } from 'cc';
 const { ccclass, property } = _decorator;
 
 import Spawner from './Spawner';
