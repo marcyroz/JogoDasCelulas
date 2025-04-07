@@ -38,6 +38,7 @@ export default class ScriptRBC extends Component {
       );
     }
   }
+
   onBeginContact(
     selfCollider: Collider2D,
     otherCollider: Collider2D,
