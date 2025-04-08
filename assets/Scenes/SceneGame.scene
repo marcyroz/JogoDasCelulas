@@ -189,7 +189,7 @@
   {
     "__type__": "cc.Node",
     "_name": "Camada de Tiles 1",
-    "_objFlags": 512,
+    "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": {
       "__id__": 3
@@ -232,7 +232,7 @@
       "y": 0,
       "z": 0
     },
-    "_id": "98nOIimcVB5K6ZB5qgzeWm"
+    "_id": "b7vNmdnPFOtL15Nj+AC6Cr"
   },
   {
     "__type__": "cc.UITransform",
@@ -246,15 +246,15 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1280,
-      "height": 736
+      "width": 1260,
+      "height": 720
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
       "x": 0.5,
       "y": 0.5
     },
-    "_id": "01lM09t2dNFp0q8VkCGsiD"
+    "_id": "99IwpfFvlDvpK24njHrVwd"
   },
   {
     "__type__": "cc.TiledLayer",
@@ -276,7 +276,7 @@
       "b": 255,
       "a": 255
     },
-    "_id": "5a8HO118NPl52Y9gUf+Vqj"
+    "_id": "5agwmT/2ZHxr7K1od4Ej9A"
   },
   {
     "__type__": "cc.UITransform",
@@ -290,8 +290,8 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1280,
-      "height": 736
+      "width": 1260,
+      "height": 720
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -311,7 +311,7 @@
     "_enabled": true,
     "__prefab": null,
     "_tmxFile": {
-      "__uuid__": "79cd4f6d-01d2-4290-9a2a-217e028e7cd4",
+      "__uuid__": "078570da-fbec-4d1a-968c-9d68ffc291c3",
       "__expectedType__": "cc.TiledMapAsset"
     },
     "_enableCulling": true,
