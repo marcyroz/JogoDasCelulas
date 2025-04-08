@@ -46,7 +46,8 @@ export default class ScriptVirus extends Component {
     otherCollider: Collider2D,
     contact: IPhysics2DContact | null
   ) {
-    // will be called once when two colliders begin to contact
-    console.log('Virus onBeginContact');
+    if (otherCollider.tag == 2) {
+      this.node.destroy();
+    }
   }
 }
