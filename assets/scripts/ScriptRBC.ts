@@ -8,6 +8,8 @@ import {
   IPhysics2DContact,
   ITriggerEvent,
   PhysicsSystem2D,
+  Sprite,
+  SpriteFrame,
 } from 'cc';
 const { ccclass, property } = _decorator;
 
@@ -23,6 +25,12 @@ export default class ScriptRBC extends Component {
   reproductionRate: number = 0;
   @property
   infected: boolean = false;
+
+  @property(SpriteFrame)
+  public infectedSprite: SpriteFrame = null;
+
+  @property(SpriteFrame)
+  public normalSprite: SpriteFrame = null;
 
   start() {
     let collider = this.getComponent(Collider2D);
@@ -44,6 +52,9 @@ export default class ScriptRBC extends Component {
     otherCollider: Collider2D,
     contact: IPhysics2DContact | null
   ) {
-    console.log('RBC onBeginContact');
+    if (otherCollider.tag == 3) {
+      this.infected = true;
+      this.getComponent(Sprite).spriteFrame = this.infectedSprite;
+    }
   }
 }

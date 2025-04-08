@@ -44,7 +44,5 @@ export default class ScriptWBC extends Component {
     selfCollider: Collider2D,
     otherCollider: Collider2D,
     contact: IPhysics2DContact | null
-  ) {
-    console.log('WBC onBeginContact');
-  }
+  ) {}
 }
