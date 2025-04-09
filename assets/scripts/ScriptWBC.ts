@@ -1,13 +1,9 @@
 import {
   _decorator,
-  CircleCollider2D,
   Collider2D,
   Component,
   Contact2DType,
-  ICollisionEvent,
   IPhysics2DContact,
-  ITriggerEvent,
-  PhysicsSystem2D,
 } from 'cc';
 const { ccclass, property } = _decorator;
 
@@ -29,15 +25,6 @@ export default class ScriptWBC extends Component {
     let collider = this.getComponent(Collider2D);
     if (collider) {
       collider.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
-    }
-
-    // Registering global contact callback functions
-    if (PhysicsSystem2D.instance) {
-      PhysicsSystem2D.instance.on(
-        Contact2DType.BEGIN_CONTACT,
-        this.onBeginContact,
-        this
-      );
     }
   }
   onBeginContact(

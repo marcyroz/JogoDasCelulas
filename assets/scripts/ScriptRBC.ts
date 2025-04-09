@@ -1,13 +1,10 @@
 import {
   _decorator,
-  CircleCollider2D,
   Collider2D,
   Component,
   Contact2DType,
   ICollisionEvent,
   IPhysics2DContact,
-  ITriggerEvent,
-  PhysicsSystem2D,
   Sprite,
   SpriteFrame,
 } from 'cc';
@@ -16,7 +13,7 @@ const { ccclass, property } = _decorator;
 @ccclass('ScriptRBC')
 export default class ScriptRBC extends Component {
   @property
-  health: number = 0;
+  health: number = 100;
   @property
   speed: number = 0;
   @property
@@ -32,29 +29,37 @@ export default class ScriptRBC extends Component {
   @property(SpriteFrame)
   public normalSprite: SpriteFrame = null;
 
+  private inContactWithWBC: boolean = false;
+
   start() {
-    let collider = this.getComponent(Collider2D);
+    const collider = this.getComponent(Collider2D);
     if (collider) {
       collider.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
-    }
-
-    if (PhysicsSystem2D.instance) {
-      PhysicsSystem2D.instance.on(
-        Contact2DType.BEGIN_CONTACT,
-        this.onBeginContact,
-        this
-      );
+      collider.on(Contact2DType.END_CONTACT, this.onEndContact, this);
     }
   }
 
-  onBeginContact(
-    selfCollider: Collider2D,
-    otherCollider: Collider2D,
-    contact: IPhysics2DContact | null
-  ) {
-    if (otherCollider.tag == 3) {
+  onBeginContact(selfCollider: Collider2D, otherCollider: Collider2D) {
+    if (otherCollider.tag == 3 && !this.infected) {
       this.infected = true;
       this.getComponent(Sprite).spriteFrame = this.infectedSprite;
+    }
+
+    if (otherCollider.tag == 2) {
+      this.inContactWithWBC = true;
+    }
+  }
+
+  onEndContact(selfCollider: Collider2D, otherCollider: Collider2D) {
+    if (otherCollider.tag == 2) {
+      this.inContactWithWBC = false;
+    }
+  }
+
+  update() {
+    if (this.inContactWithWBC && this.infected) {
+      this.infected = false;
+      this.getComponent(Sprite).spriteFrame = this.normalSprite;
     }
   }
 }

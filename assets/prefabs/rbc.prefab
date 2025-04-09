@@ -133,7 +133,7 @@
     },
     "tag": 1,
     "_group": 4,
-    "_density": 1,
+    "_density": 0,
     "_sensor": true,
     "_friction": 0,
     "_restitution": 0,
@@ -197,7 +197,7 @@
     "fileId": "06vuLwCnNHd4ADKOUQNoUJ"
   },
   {
-    "__type__": "720d81Otd9GarXZK8XTd0Kk",
+    "__type__": "cc.RigidBody2D",
     "_name": "",
     "_objFlags": 0,
     "__editorExtras__": {},
@@ -208,42 +208,11 @@
     "__prefab": {
       "__id__": 11
     },
-    "health": 20,
-    "speed": 2,
-    "resistance": 4,
-    "reproductionRate": 5,
-    "infected": false,
-    "infectedSprite": {
-      "__uuid__": "8d19ba14-6ddb-4804-bfe4-8391779adc9d@f9941",
-      "__expectedType__": "cc.SpriteFrame"
-    },
-    "normalSprite": {
-      "__uuid__": "e9bb3aa9-08e1-4a73-948e-1cf629879260@f9941",
-      "__expectedType__": "cc.SpriteFrame"
-    },
-    "_id": ""
-  },
-  {
-    "__type__": "cc.CompPrefabInfo",
-    "fileId": "5e4k+v8OJK86OTY3/WRfKN"
-  },
-  {
-    "__type__": "cc.RigidBody2D",
-    "_name": "",
-    "_objFlags": 0,
-    "__editorExtras__": {},
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "__prefab": {
-      "__id__": 13
-    },
     "enabledContactListener": true,
     "bullet": false,
     "awakeOnLoad": true,
     "_group": 4,
-    "_type": 2,
+    "_type": 1,
     "_allowSleep": true,
     "_gravityScale": 0,
     "_linearDamping": 0,
@@ -260,6 +229,37 @@
   {
     "__type__": "cc.CompPrefabInfo",
     "fileId": "210J4h/utO05N8PoKBxftY"
+  },
+  {
+    "__type__": "42a60bw/D1Kl6G3QsQ/Vgzb",
+    "_name": "",
+    "_objFlags": 0,
+    "__editorExtras__": {},
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "__prefab": {
+      "__id__": 13
+    },
+    "health": 20,
+    "speed": 3,
+    "resistance": 10,
+    "reproductionRate": 5,
+    "infected": false,
+    "infectedSprite": {
+      "__uuid__": "8d19ba14-6ddb-4804-bfe4-8391779adc9d@f9941",
+      "__expectedType__": "cc.SpriteFrame"
+    },
+    "normalSprite": {
+      "__uuid__": "e9bb3aa9-08e1-4a73-948e-1cf629879260@f9941",
+      "__expectedType__": "cc.SpriteFrame"
+    },
+    "_id": ""
+  },
+  {
+    "__type__": "cc.CompPrefabInfo",
+    "fileId": "d79lAam1JEMKs3UXbxKvV+"
   },
   {
     "__type__": "cc.PrefabInfo",
