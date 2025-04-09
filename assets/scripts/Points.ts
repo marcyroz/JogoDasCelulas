@@ -9,7 +9,7 @@ export class Points extends Component {
   private _points: number = 0;
 
   protected start(): void {
-    this.points = 10;
+    this.points = 40;
   }
 
   public get points(): number {

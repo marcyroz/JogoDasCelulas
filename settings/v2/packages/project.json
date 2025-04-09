@@ -31,9 +31,15 @@
     ],
     "collisionMatrix": {
       "0": 0,
-      "1": 8,
-      "2": 8,
+      "1": 12,
+      "2": 10,
       "3": 6
     }
-  }
+  },
+  "general": {
+    "designResolution": {
+      "width": 1260
+    }
+  },
+  "custom_joint_texture_layouts": []
 }
