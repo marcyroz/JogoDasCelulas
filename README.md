@@ -2,6 +2,9 @@
 
 **YR432** é um projeto de simulação celular desenvolvido como parte da matéria de **Laboratório de Engenharia de Software** na **FATEC de Praia Grande**. O jogo simula a interação entre vírus, glóbulos vermelhos (RBC) e glóbulos brancos (WBC), utilizando colisões, reprodução automática e diferentes status de habilidades.
 
+![image](https://github.com/user-attachments/assets/7031e45f-391d-4097-9e9e-e7615d8b6493)
+
+
 ---
 
 ## 🔧 Tecnologias
