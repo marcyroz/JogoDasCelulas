@@ -1,6 +1,6 @@
 # YR432
 
-**YR432** é um projeto de simulação celular desenvolvido como parte da matéria de **Laboratório de Engenharia de Software** na **FATEC de Praia Grande**. O jogo simula a interação entre vírus, glóbulos vermelhos (RBC) e glóbulos brancos (WBC), utilizando colisões, reprodução automática e movimentação baseada em pathfinding.
+**YR432** é um projeto de simulação celular desenvolvido como parte da matéria de **Laboratório de Engenharia de Software** na **FATEC de Praia Grande**. O jogo simula a interação entre vírus, glóbulos vermelhos (RBC) e glóbulos brancos (WBC), utilizando colisões, reprodução automática e diferentes status de habilidades.
 
 ---
 
@@ -35,23 +35,28 @@ cd YR432
 - Navegue para a aba **Projects**
 - Clique em **Add Project**
 - Selecione a pasta do projeto
-
-
+- Clique no projeto para acessá-lo
 
 ---
 
 ## ▶️ Executar no navegador
 
 1. Com o projeto aberto no Cocos Creator
-2. Certifique-se de que a cena principal (`Main.scene`) está carregada
-3. Selecione a plataforma **Web**
+2. Certifique-se de que a cena principal (`SceneGame`) está carregada
+3. Selecione **Preview in Browser**
 4. Clique no botão **Play** ▶️ no topo da janela
+   
+![Captura de tela 2025-04-15 161215](https://github.com/user-attachments/assets/c0f483a9-da67-4be9-8337-5dda7a810635)
+
+Obs: se o projeto estiver sendo apresentado em 3d, clicar no campo selecionado para convertê-lo para a visualização 2d
+
+![Captura de tela 2025-04-15 161903](https://github.com/user-attachments/assets/c5f93e88-8ee1-4d9f-9a23-9a9b97d2ef1e)
+
 
 ---
 
 ## 🧬 Sobre
 
-- Vírus perseguem RBCs usando **pathfinding com A\***
 - WBCs curam RBCs infectadas por colisão
 - Reprodução automática baseada em taxa configurável por tipo de célula
 - As posições são geradas dinamicamente num grid, respeitando zonas bloqueadas do mapa
@@ -63,15 +68,23 @@ cd YR432
 ```
 YR432/
 ├── assets/
+│   ├── gameRes/
+        ├── Board
+        ├── Computer
+        ...
+│   ├── prefabs/
+        ├── rbc.ts
+        ├── virus.ts
+        ├── wbc.ts
 │   ├── scripts/
 │   │   ├── ScriptVirus.ts
 │   │   ├── ScriptRBC.ts
 │   │   ├── ScriptWBC.ts
 │   │   ├── Spawner.ts
-│   │   └── PathFinding.ts
-│   └── scenes/
-│       └── Main.scene
-├── project.json
+│   │   └── GameCtrl.ts
+│   └── Scenes/
+│       └── SceneGame.scene
+├── package.json
 └── README.md
 ```
 
@@ -79,5 +92,5 @@ YR432/
 
 ## 🧠 Créditos
 
-Desenvolvido como parte do curso de Engenharia de Software – 2025  
-Por [Seu Nome]
+Desenvolvido como parte do curso de Análise e Desenvolvimento de Sistemas – 2025  
+Por Marcelly Farias, Vinícius Cauã e Johny Richard
