@@ -98,4 +98,4 @@ YR432/
 ## 🧠 Créditos
 
 Desenvolvido como parte do curso de Análise e Desenvolvimento de Sistemas – 2025  
-Por Marcelly Farias, Vinícius Cauã e Johny Richard
+Marcelly Farias, Vinícius Cauã e Johny Richard
