@@ -72,23 +72,25 @@ Obs: se o projeto estiver sendo apresentado em 3d, clicar no campo selecionado p
 YR432/
 ├── assets/
 │   ├── gameRes/
-        ├── Board
-        ├── Computer
-        ...
+│   │   ├── Board
+│   │   ├── Computer
+│   │   ...
 │   ├── prefabs/
-        ├── rbc.ts
-        ├── virus.ts
-        ├── wbc.ts
+│   │   ├── rbc.ts
+│   │   ├── virus.ts
+│   │   ├── wbc.ts
 │   ├── scripts/
 │   │   ├── ScriptVirus.ts
 │   │   ├── ScriptRBC.ts
 │   │   ├── ScriptWBC.ts
 │   │   ├── Spawner.ts
 │   │   └── GameCtrl.ts
+│   │   ...
 │   └── Scenes/
 │       └── SceneGame.scene
 ├── package.json
 └── README.md
+...
 ```
 
 ---
