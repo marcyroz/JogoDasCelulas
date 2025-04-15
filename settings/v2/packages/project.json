@@ -13,5 +13,33 @@
       "name": "virus",
       "value": 4
     }
-  ]
+  ],
+  "physics": {
+    "collisionGroups": [
+      {
+        "index": 1,
+        "name": "WBC"
+      },
+      {
+        "index": 2,
+        "name": "RBC"
+      },
+      {
+        "index": 3,
+        "name": "Virus"
+      }
+    ],
+    "collisionMatrix": {
+      "0": 0,
+      "1": 12,
+      "2": 10,
+      "3": 6
+    }
+  },
+  "general": {
+    "designResolution": {
+      "width": 1260
+    }
+  },
+  "custom_joint_texture_layouts": []
 }
