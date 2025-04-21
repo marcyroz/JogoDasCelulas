@@ -99,7 +99,9 @@ YR432/
 
 O deploy foi realizado através da **Vercel**, utilizando a build nativa para web gerado pelo Cocos Creator.
 
-Link: https://jogo-das-celulas-deploy.vercel.app/
+Link do deploy: https://jogo-das-celulas-deploy.vercel.app/
+
+Link do repo do deploy: https://github.com/marcyroz/jogoDasCelulasDeploy
 
 ![image](https://github.com/user-attachments/assets/f92e101a-6d74-4013-a9bf-ac1946c24695)
 
